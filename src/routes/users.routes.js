@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createPassanger } from "../controllers/users.controllers.js";
+import { createPassenger, getPassengersFlights } from "../controllers/users.controllers.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
-import { passanger } from "../schemas/users.schema.js";
+import { passenger } from "../schemas/users.schema.js";
 
 const usersRouter = Router();
 
-usersRouter.post("/passangers", validateSchema(passanger), createPassanger);
-usersRouter.get("/passengers/travels");
+usersRouter.post("/passengers", validateSchema(passenger), createPassenger);
+usersRouter.get("/passengers/travels", getPassengersFlights);
 
 export default usersRouter;

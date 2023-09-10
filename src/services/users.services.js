@@ -1,12 +1,20 @@
+import internalServerError from "../errors/internalServer.js";
 import usersRepository from "../repositories/users.repository.js";
 
-async function createPassanger(firstName, lastName) {
-    const answer = await usersRepository.createPassanger(firstName, lastName);
+async function createPassenger(firstName, lastName) {
+    const answer = await usersRepository.createPassenger(firstName, lastName);
     return answer;
 }
 
+async function getPassengersFlights({name}) {
+    const travels = await usersRepository.getPassengersFlights(name);
+    if (travels.length > 10) throw internalServerError();
+    return travels;
+}
+
 const usersServices = {
-    createPassanger
+    createPassenger,
+    getPassengersFlights
 }
 
 export default usersServices;

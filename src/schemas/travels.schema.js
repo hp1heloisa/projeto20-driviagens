@@ -14,3 +14,8 @@ export const travel = Joi.object({
     passengerId: Joi.number().integer().required(),
 	flightId: Joi.number().integer().required()
 })
+
+export const date = Joi.object({
+    bigger_date: Joi.string().regex(/^\d{2}-\d{2}-\d{4}$/),
+    smaller_date: Joi.string().regex(/^\d{2}-\d{2}-\d{4}$/)
+})

@@ -18,3 +18,8 @@ export async function createTravel(req, res){
     await travelsServices.createTravel(passengerId, flightId);
     res.sendStatus(httpStatus.CREATED);
 }
+
+export async function getFlights(req, res) {
+    const flights = await travelsServices.getFlights(req.query);
+    res.send(flights);
+}
