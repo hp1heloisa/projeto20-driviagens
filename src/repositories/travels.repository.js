@@ -35,7 +35,7 @@ async function createTravel(passengerId, flightId){
     return answer.rows;
 }
 
-async function getFlights({origin, destination, bigger_date, smaller_date}){
+async function getFlights({origin, destination, bigger_date, smaller_date, page}){
     const array = [];
     let query = `
         SELECT flights.id, origin_city.name AS origin, destination_city.name AS destination, 
@@ -63,7 +63,11 @@ async function getFlights({origin, destination, bigger_date, smaller_date}){
             query += ` AND flights.date BETWEEN $${array.length-1} AND $${array.length}`
         }
     }
-    const flights = await db.query(query+' ORDER BY flights.date ASC;', array);
+    if (page) {
+        array.push((page-1)*10);
+        query += ` ORDER BY flights.date ASC OFFSET $${array.length} LIMIT 10`
+    }
+    const flights = await db.query(query, array);
     return flights.rows;
 }
 

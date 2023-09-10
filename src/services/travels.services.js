@@ -33,7 +33,10 @@ async function createTravel(passengerId, flightId){
 }
 
 async function getFlights(querys) {
-    const {bigger_date, smaller_date} = querys;
+    const {bigger_date, smaller_date, page} = querys;
+    if (page && (isNaN(page) || page<=0)){
+        throw badRequestError('Invalid page value');
+    }
     if (bigger_date || smaller_date){
         if ((bigger_date && smaller_date) == undefined){
             throw formatError('As duas datas devem ser passadas!');

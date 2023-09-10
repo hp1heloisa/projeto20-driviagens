@@ -1,5 +1,6 @@
-export default function badRequestError(){
+export default function badRequestError(erro){
     return {
-        type: "badRequest"
+        type: "badRequest",
+        message: erro
     }
 }

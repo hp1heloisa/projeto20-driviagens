@@ -14,7 +14,7 @@ async function findPassenger(passengerId){
     return answer.rows;
 }
 
-async function getPassengersFlights(name) {
+async function getPassengersFlights({name, page}) {
     const array = []
     let query = `
         SELECT passengers."firstName" || ' ' || passengers."lastName" as passenger, COUNT(travels."passengerId") 
@@ -24,9 +24,12 @@ async function getPassengersFlights(name) {
         array.push(`%${name}%`);
         query += ` WHERE  passengers."firstName" || ' ' || passengers."lastName" LIKE $1`;
     }
-    const answer = await db.query(
-        query+` GROUP BY passengers.id ORDER BY travels DESC`
-    , array);
+    query += ' GROUP BY passengers.id ORDER BY travels'
+    if (page) {
+        array.push((page-1)*10);
+        query += ` DESC OFFSET $${array.length} LIMIT 10`
+    }
+    const answer = await db.query(query, array);
     return answer.rows;
 }
 
