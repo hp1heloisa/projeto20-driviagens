@@ -33,7 +33,7 @@ async function createTravel(passengerId, flightId){
 }
 
 async function getFlights(querys) {
-    const {bigger_date, smaller_date, page} = querys;
+    const {"bigger-date": bigger_date, "smaller-date": smaller_date, page} = querys;
     if (page && (isNaN(page) || page<=0)){
         throw badRequestError('Invalid page value');
     }
@@ -41,7 +41,7 @@ async function getFlights(querys) {
         if ((bigger_date && smaller_date) == undefined){
             throw formatError('As duas datas devem ser passadas!');
         } else if (dayjs(smaller_date.split('-').reverse().join('-')) > dayjs(bigger_date.split('-').reverse().join('-'))) {
-            throw badRequestError();
+            throw badRequestError('A smaller-date não pode ser maior que a bigger-date!');
         }
     }
     const flights = await travelsRepositories.getFlights(querys);

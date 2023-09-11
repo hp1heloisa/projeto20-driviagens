@@ -39,7 +39,7 @@ async function createTravel(passengerId, flightId){
     return answer.rows;
 }
 
-async function getFlights({origin, destination, bigger_date, smaller_date, page}){
+async function getFlights({origin, destination, "bigger-date": bigger_date, "smaller-date": smaller_date, page}){
     const array = [];
     let query = `
         SELECT flights.id, origin_city.name AS origin, destination_city.name AS destination, 

@@ -16,6 +16,6 @@ export const travel = Joi.object({
 })
 
 export const date = Joi.object({
-    bigger_date: Joi.string().regex(/^\d{2}-\d{2}-\d{4}$/),
-    smaller_date: Joi.string().regex(/^\d{2}-\d{2}-\d{4}$/)
+    "bigger-date": Joi.string().regex(/^\d{2}-\d{2}-\d{4}$/),
+    "smaller-date": Joi.string().regex(/^\d{2}-\d{2}-\d{4}$/)
 })
