@@ -43,7 +43,7 @@ async function getFlights({origin, destination, "bigger-date": bigger_date, "sma
     const array = [];
     let query = `
         SELECT flights.id, origin_city.name AS origin, destination_city.name AS destination, 
-        TO_CHAR(flights.date, 'DD-MM-YYYY') FROM flights JOIN cities AS origin_city ON 
+        TO_CHAR(flights.date, 'DD-MM-YYYY') AS date FROM flights JOIN cities AS origin_city ON 
         flights.origin = origin_city.id JOIN cities AS destination_city ON flights.destination = destination_city.id
     `;
 
