@@ -8,9 +8,13 @@ async function createCity(name) {
 }
 
 async function findCity(dado) {
-    const answer = await db.query(`
-        SELECT * FROM cities WHERE name = $1 OR id = $2;
-    `, [dado, dado]);
+    let query = 'SELECT * FROM cities WHERE '
+    if (isNaN(dado)){
+        query += 'name = $1;'
+    } else {
+        query += 'id = $1;'
+    }
+    const answer = await db.query(query, [dado]);
     return answer.rows;
 }
 

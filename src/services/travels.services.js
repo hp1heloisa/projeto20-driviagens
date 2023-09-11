@@ -18,16 +18,16 @@ async function createFlight(origin, destination, date){
     if (origin == destination) throw conflictError('Origem e destino devem ser diferentes!');
     const findOrigin = await travelsRepositories.findCity(origin);
     const findDestination = await travelsRepositories.findCity(destination);
-    if (findOrigin.length == 0 || findDestination.length == 0) throw notFoundError('Cidade');
+    if (findOrigin.length == 0 || findDestination.length == 0) throw notFoundError('Cidade não encontrada!');
     const answer = await travelsRepositories.createFlight(origin, destination, date.split('-').reverse().join('-'));
     return answer;
 }
 
 async function createTravel(passengerId, flightId){
     const findPassenger = await usersRepository.findPassenger(passengerId);
-    if (findPassenger.length == 0) throw notFoundError("Passageiro");
+    if (findPassenger.length == 0) throw notFoundError("Passageiro não encontrado!");
     const findFlight = await travelsRepositories.findFlight(flightId);
-    if (findFlight.length == 0) throw notFoundError("Voo");
+    if (findFlight.length == 0) throw notFoundError("Voo não encontrado!");
     const answer = await travelsRepositories.createTravel(passengerId, flightId);
     return answer;
 }
