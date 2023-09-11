@@ -67,9 +67,10 @@ async function getFlights({origin, destination, "bigger-date": bigger_date, "sma
             query += ` AND flights.date BETWEEN $${array.length-1} AND $${array.length}`
         }
     }
+    query += ' ORDER BY flights.date ASC'
     if (page) {
         array.push((page-1)*10);
-        query += ` ORDER BY flights.date ASC OFFSET $${array.length} LIMIT 10`
+        query += ` OFFSET $${array.length} LIMIT 10`
     }
     const flights = await db.query(query, array);
     return flights.rows;
