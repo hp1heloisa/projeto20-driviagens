@@ -22,7 +22,7 @@ async function getPassengersFlights({name, page}) {
     `
     if (name) {
         array.push(`%${name}%`);
-        query += ` WHERE  passengers."firstName" || ' ' || passengers."lastName" LIKE $1`;
+        query += ` WHERE  passengers."firstName" || ' ' || passengers."lastName" ILIKE $1`;
     }
     query += ' GROUP BY passengers.id ORDER BY travels'
     if (page) {
